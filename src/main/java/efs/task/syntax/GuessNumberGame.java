@@ -38,17 +38,14 @@ public class GuessNumberGame {
         Scanner in = new Scanner(System.in);
         this.liczba = val.nextInt(1+M);
         this.L = (int) Math.abs(Math.log(M)/Math.log(2)+1);
-        System.out.println("Zakres gry: <1,"+this.M+">.");
-        System.out.println("Zacznijmy grę.");
         int proby=0;
         do {
+            System.out.println("Zakres gry: <1,"+this.M+">.");
             char[] temp = new char[L];
-            System.out.println("Progess bar: ");
-            for (int i = 0; i < proby; ++i) {
+            for (int i = 0; i < proby + 1; ++i) {
                 temp[i] += '*';
             }
-            for(int i=proby;i<temp.length;++i){
-
+            for(int i=proby +1 ;i<L;++i){
                 temp[i]+='.';
             }
             System.out.print("[");
@@ -56,12 +53,13 @@ public class GuessNumberGame {
                 System.out.print(temp[i]);
             }
             System.out.println("]");
-            System.out.println(UsefulConstants.GIVE_ME);
+            System.out.println(UsefulConstants.GIVE_ME+" liczbę do zgadywania: ");
             String liczba_uzytkownik = in.nextLine();
+            int zgadywanie;
             try {
-                int zgadywanie = Integer.parseInt(liczba_uzytkownik);
+                zgadywanie = Integer.parseInt(liczba_uzytkownik);
 
-                if(zgadywanie > UsefulConstants.MAX_UPPER_BOUND){
+                if(zgadywanie > M){
                     ++proby;
                     System.out.println(zgadywanie + " jest " + UsefulConstants.TO_MUCH);
                 }
@@ -70,7 +68,7 @@ public class GuessNumberGame {
                     System.out.println(zgadywanie + " jest " + UsefulConstants.TO_LESS);
                 }
                 else if(zgadywanie == liczba){
-                    System.out.println(zgadywanie + UsefulConstants.YES+"!");
+                    System.out.println(zgadywanie + UsefulConstants.YES+" !");
                     break;
                 }else{
                     ++proby;
@@ -83,11 +81,11 @@ public class GuessNumberGame {
                 System.out.println(liczba_uzytkownik + " jest " + UsefulConstants.NOT_A_NUMBER);
 
             }
-        }while(proby <= L);
-        if(proby>L){
+        }while(proby +1 < L+1);
+        if(proby+1>L){
             System.out.println("Skończyły Ci się próby " + UsefulConstants.UNFORTUNATELY + ". Liczba to była: "+ liczba);
         }else{
-            System.out.println("Odgadłeś! "+UsefulConstants.CONGRATULATIONS);
+            System.out.println("Odgadłeś! "+UsefulConstants.YES+" "+UsefulConstants.CONGRATULATIONS);
         }
 
     }
